@@ -14,7 +14,24 @@ function route = GradientBasedPlanner (f, start_coords, end_coords, max_its)
 
 %%% All of your code should be between the two lines of stars.
 % *******************************************************************
-route = 0;
+
+route=start_coords;
+
+i=1; %current iteration
+current_pos=start_coords; %current position
+
+while i<max_its && norm(end_coords-current_pos)>2.0
+    %current position
+    i=round(current_pos(1));
+    j=round(current_pos(2));
+    
+    Advance = [gx(j,i),gy(j,i)];
+    current_pos =current_pos + Advance/norm(Advance);
+    
+    route=[route;current_pos];
+    
+    i=i+1;
+end
 
 % *******************************************************************
 end
